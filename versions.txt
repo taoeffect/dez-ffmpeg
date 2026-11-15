@@ -8,9 +8,9 @@ opus: v1.6.1
 mbedtls: v3.4.1
 
 # Changed for Dez: the libraries below.  update-dez-libraries.sh moves each one to its newest stable tag that is at least 14 days old.  Keep this block apart from the lines above, so that a change of the Shaka Project there merges with no conflict.
-zlib: v1.3.2
+zlib: v1.4
 freetype: VER-2-15-0
-harfbuzz: 15.0.0
+harfbuzz: 15.1.0
 fribidi: v1.0.18
 libass: 0.17.5
 
