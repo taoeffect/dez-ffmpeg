@@ -6,7 +6,13 @@ x265: 4.2
 lame: 3.100
 opus: v1.6.1
 mbedtls: v3.4.1
+zlib: v1.3.2
+freetype: VER-2-15-0
+harfbuzz: 15.0.0
+fribidi: v1.0.18
+libass: 0.17.5
 
 # NOTES:
 #  - mbedtls v4 isn't building properly, and mbedtls v3.6 and v3.5 fail to link with ffmpeg on Windows (bcrypt missing)
 #  - if mbedtls v4 build can be fixed in general, could try again with ffmpeg n8.1 (last tried with n8.0)
+#  - Changed for Dez: added zlib, freetype, harfbuzz, fribidi, and libass.  Each pin is the newest stable tag that was at least 14 days old when it was pinned.

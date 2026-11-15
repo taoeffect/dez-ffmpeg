@@ -14,6 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Changed for Dez: zlib (PNG), and libfreetype, libharfbuzz, libfribidi, and
+# libass (the drawtext, subtitles, and ass filters).
+
 set -e
 set -x
 
@@ -83,6 +86,11 @@ if ! ./configure \
     --enable-libmp3lame \
     --enable-libopus \
     --enable-mbedtls \
+    --enable-zlib \
+    --enable-libfreetype \
+    --enable-libharfbuzz \
+    --enable-libfribidi \
+    --enable-libass \
     --enable-runtime-cpudetect \
     --enable-gpl \
     --enable-version3 \

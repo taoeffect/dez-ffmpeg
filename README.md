@@ -1,3 +1,24 @@
+# dez-ffmpeg
+
+The static `ffmpeg` and `ffprobe` programs that [Dez][dez] ships.  This
+repository is a copy of the Shaka Project's
+[static-ffmpeg-binaries][shaka], with these changes:
+
+ - It builds only the three targets of Dez: Linux x64, Linux arm64, and
+   macOS arm64.
+ - It adds zlib, FreeType, HarfBuzz, FriBidi, and libass, for PNG and for the
+   `drawtext`, `subtitles`, and `ass` filters.  libass has no system font
+   provider, so give the fonts in the filter options: `fontfile` (drawtext)
+   or `fontsdir` (subtitles, ass).
+ - It does not have the issue and label workflows of the Shaka Project.
+
+Each changed file has a "Changed for Dez" note, and each new file an "Added
+for Dez" note.  The rest of this file is the README of the Shaka Project.
+
+[dez]: https://github.com/taoeffect/dez
+[shaka]: https://github.com/shaka-project/static-ffmpeg-binaries
+
+
 # static-ffmpeg-binaries
 
 Static binaries of FFmpeg, for multiple OS &amp; CPU combinations, built from
@@ -87,10 +108,10 @@ The build outputs will be in the `build/` folder, e.g.
 `build/ffmpeg/ffmpeg` and `build/ffmpeg/ffprobe`.
 
 
-[releases]: https://github.com/shaka-project/static-ffmpeg-binaries/releases
-[workflow]: https://github.com/shaka-project/static-ffmpeg-binaries/blob/main/.github/workflows/release.yaml
+[releases]: https://github.com/taoeffect/dez-ffmpeg/releases
+[workflow]: https://github.com/taoeffect/dez-ffmpeg/blob/main/.github/workflows/release.yaml
 [api-client]: https://github.com/shaka-project/static-ffmpeg-binaries/blob/main/api-client/main.js
-[version-script]: https://github.com/shaka-project/static-ffmpeg-binaries/blob/main/get-version.sh
-[version-file]: https://github.com/shaka-project/static-ffmpeg-binaries/blob/main/versions.txt
-[apache]: https://github.com/shaka-project/static-ffmpeg-binaries/blob/main/LICENSE
+[version-script]: https://github.com/taoeffect/dez-ffmpeg/blob/main/get-version.sh
+[version-file]: https://github.com/taoeffect/dez-ffmpeg/blob/main/versions.txt
+[apache]: https://github.com/taoeffect/dez-ffmpeg/blob/main/LICENSE
 [gpl]: https://github.com/FFmpeg/FFmpeg/blob/master/COPYING.GPLv3

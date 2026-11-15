@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Changed for Dez: the steps that build zlib, freetype, harfbuzz, fribidi,
+# and libass.
+
 # A workflow to build fresh binaries.
 # Builds ffmpeg and ffprobe on all OS & CPU combinations, then optionally
 # attaches them to a release.
@@ -230,6 +233,21 @@ jobs:
 
       - name: Install mbedtls
         run: ./repo-src/build-scripts/07-mbedtls.sh
+
+      - name: Install zlib
+        run: ./repo-src/build-scripts/08-zlib.sh
+
+      - name: Install freetype
+        run: ./repo-src/build-scripts/09-freetype.sh
+
+      - name: Install harfbuzz
+        run: ./repo-src/build-scripts/10-harfbuzz.sh
+
+      - name: Install fribidi
+        run: ./repo-src/build-scripts/11-fribidi.sh
+
+      - name: Install libass
+        run: ./repo-src/build-scripts/12-libass.sh
 
       - name: Build ffmpeg and ffprobe
         run: ./repo-src/build-scripts/90-ffmpeg.sh

@@ -14,6 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Changed for Dez: meson (and ninja) for the libraries of the drawtext,
+# subtitles, and ass filters; more Homebrew packages to unlink;
+# PKG_CONFIG_PATH on macOS; and parallel make jobs.
+
 set -e
 set -x
 
@@ -35,6 +39,7 @@ if [[ "$RUNNER_OS" == "Linux" ]]; then
       libvdpau-dev \
       linux-headers \
       make \
+      meson \
       nasm \
       patch \
       perl \
@@ -54,6 +59,7 @@ if [[ "$RUNNER_OS" == "Linux" ]]; then
       libffmpeg-nvenc-dev \
       libva-dev \
       make \
+      meson \
       nasm \
       npm \
       pkg-config \
@@ -67,7 +73,9 @@ elif [[ "$RUNNER_OS" == "macOS" ]]; then
   # Use homebrew to install missing packages on mac.
   brew install \
     md5sha1sum \
+    meson \
     nasm \
+    ninja \
     yasm
 
   # Downgrade to CMake v3 specifically.  x265 blows up on CMake v4.
@@ -89,7 +97,14 @@ elif [[ "$RUNNER_OS" == "macOS" ]]; then
   # Ignore errors if one of these is not installed.
   for i in \
     aom \
+    fontconfig \
+    freetype \
+    fribidi \
+    graphite2 \
+    harfbuzz \
     lame \
+    libass \
+    libpng \
     libvpx \
     libx11 \
     libxau \
@@ -106,6 +121,10 @@ elif [[ "$RUNNER_OS" == "macOS" ]]; then
 
   # Use sudo in install commands on macOS.
   echo "SUDO=sudo" >> "$GITHUB_ENV"
+
+  # Make sure that pkg-config finds the static libraries that we build in
+  # /usr/local before any library of Homebrew.
+  echo "PKG_CONFIG_PATH=/usr/local/lib/pkgconfig" >> "$GITHUB_ENV"
 elif [[ "$RUNNER_OS" == "Windows" ]]; then
   # Install msys packages we will need.
   #
@@ -139,3 +158,12 @@ elif [[ "$RUNNER_OS" == "Windows" ]]; then
   # Make sure that pkg-config searches the path where we will install things.
   echo "PKG_CONFIG_PATH=/usr/local/lib/pkgconfig" >> "$GITHUB_ENV"
 fi
+
+# Run one make job per CPU in every later step.  The build scripts call a
+# plain "make", and make reads its options from MAKEFLAGS.
+if [[ "$RUNNER_OS" == "macOS" ]]; then
+  cpus=$(sysctl -n hw.ncpu)
+else
+  cpus=$(nproc)
+fi
+echo "MAKEFLAGS=-j$cpus" >> "$GITHUB_ENV"
