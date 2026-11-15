@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Changed for Dez: the steps that build zlib, freetype, harfbuzz, fribidi,
-# and libass.
+# and libass, and SHA-256 sums in place of MD5 sums.
 
 # A workflow to build fresh binaries.
 # Builds ffmpeg and ffprobe on all OS & CPU combinations, then optionally
@@ -263,11 +263,11 @@ jobs:
           cp ffmpeg/ffmpeg assets/ffmpeg"$SUFFIX"
           cp ffmpeg/ffprobe assets/ffprobe"$SUFFIX"
 
-          # Show sizes and MD5 sums that can be verified by users later if they
-          # want to check for authenticity.
+          # Show sizes and SHA-256 sums that can be verified by users later if
+          # they want to check for authenticity.
           cd assets
           wc -c *
-          md5sum *
+          sha256sum *
 
       # This makes it possible to debug failures in the next step by
       # downloading binaries that fail the check for static linkage.

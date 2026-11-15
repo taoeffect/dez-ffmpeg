@@ -1,5 +1,5 @@
 {
-  "comment0": "Changed for Dez: only the three targets that Dez ships (Linux x64, Linux arm64, macOS arm64).",
+  "comment0": "Changed for Dez: only the three targets that Dez ships (Linux x64, Linux arm64, macOS arm64), and the os_name macos in place of osx (the release file names, as in ffmpeg-macos-arm64).",
   "comment1": "runners hosted by GitHub, always enabled",
   "hosted": [
     {
@@ -21,7 +21,7 @@
     {
       "comment": "Latest macOS version is arm64 CPU.",
       "os": "macos-latest",
-      "os_name": "osx",
+      "os_name": "macos",
       "target_arch": "arm64",
       "exe_ext": ""
     }

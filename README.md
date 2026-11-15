@@ -11,6 +11,9 @@ repository is a copy of the Shaka Project's
    provider, so give the fonts in the filter options: `fontfile` (drawtext)
    or `fontsdir` (subtitles, ass).
  - It does not have the issue and label workflows of the Shaka Project.
+ - Its release files are named `macos` in place of `osx` (as in
+   `ffmpeg-macos-arm64`), and the build logs and release notes give SHA-256
+   sums in place of MD5 sums.
  - Once a week, the "Sync upstream" workflow merges the new commits of the
    Shaka Project, and moves each library that Dez adds to its newest stable
    tag that is at least 14 days old (`update-dez-libraries.sh`).  It puts the
@@ -49,10 +52,10 @@ license][gpl] for license details.
 # How are they built?
 
 FFmpeg and its key dependencies are all built from source and linked statically.
-Each run of the GitHub Actions workflow logs the MD5 sums of the binaries, and
-it places the MD5 sums into the release notes.  You can see how they were built,
-and you can verify that they haven't been tampered with.  The sums in the
-workflow logs, release notes, and the binaries should all match.
+Each run of the GitHub Actions workflow logs the SHA-256 sums of the binaries,
+and it places the SHA-256 sums into the release notes.  You can see how they
+were built, and you can verify that they haven't been tampered with.  The sums
+in the workflow logs, release notes, and the binaries should all match.
 You can read the details in the [workflow source][workflow].
 
 Minimal third-party GitHub Actions have been used in this workflow, to protect

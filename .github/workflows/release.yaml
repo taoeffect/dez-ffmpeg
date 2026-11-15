@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Changed for Dez: the release notes list SHA-256 sums, not MD5 sums.
+
 # A workflow to build and release fresh binaries.
 name: Release
 
@@ -81,9 +83,9 @@ jobs:
             sed -e 's/^/ - /' >> body.txt
           echo "" >> body.txt
 
-          # Add the MD5 sums to the release notes.
-          echo "MD5 sums:" >> body.txt
-          (cd assets; md5sum * | sed -e 's/^/ - /') >> body.txt
+          # Add the SHA-256 sums to the release notes.
+          echo "SHA-256 sums:" >> body.txt
+          (cd assets; sha256sum * | sed -e 's/^/ - /') >> body.txt
 
           # Publish the release, including release notes and assets.
           gh release create \
