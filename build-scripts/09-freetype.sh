@@ -17,7 +17,9 @@
 # Added for Dez, in the style of the Shaka Project's build scripts.
 # FreeType draws the glyphs of the drawtext filter and of libass.
 # It is built with no optional library: harfbuzz uses FreeType, so FreeType
-# must not use harfbuzz, and fonts come as plain files.
+# must not use harfbuzz, and fonts come as plain files.  HVF (Apple's
+# hierarchical variable fonts) is off too: on macOS it links ffmpeg to
+# /usr/lib/libhvf.dylib, which a Mac with an older macOS may not have.
 
 set -e
 set -x
@@ -35,6 +37,7 @@ meson setup build \
   -Dbrotli=disabled \
   -Dbzip2=disabled \
   -Dharfbuzz=disabled \
+  -Dhvf=disabled \
   -Dpng=disabled \
   -Dzlib=disabled \
   -Dtests=disabled
