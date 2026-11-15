@@ -11,6 +11,11 @@ repository is a copy of the Shaka Project's
    provider, so give the fonts in the filter options: `fontfile` (drawtext)
    or `fontsdir` (subtitles, ass).
  - It does not have the issue and label workflows of the Shaka Project.
+ - Once a week, the "Sync upstream" workflow merges the new commits of the
+   Shaka Project, and moves each library that Dez adds to its newest stable
+   tag that is at least 14 days old (`update-dez-libraries.sh`).  It puts the
+   result in one pull request, with a build of all targets.  It never tags:
+   merge the pull request, then tag the release by hand.
 
 Each changed file has a "Changed for Dez" note, and each new file an "Added
 for Dez" note.  The rest of this file is the README of the Shaka Project.
