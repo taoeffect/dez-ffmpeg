@@ -15,23 +15,26 @@
 # limitations under the License.
 
 # Added for Dez.
-# Moves each library that Dez adds to versions.txt to its newest stable tag
-# that is at least MIN_AGE_DAYS (default 14) days old.  A young release is
-# skipped, as a broken or bad release is often found in its first days.
-# Prints one line for each change.  The pins of the Shaka Project (ffmpeg,
-# libvpx, ...) are not touched: they come from upstream.
+# Moves the ffmpeg pin, and each library that Dez adds, in versions.txt to
+# its newest stable tag that is at least MIN_AGE_DAYS (default 14) days old.
+# A young release is skipped, as a broken or bad release is often found in
+# its first days.  Prints one line for each change.  The other pins of the
+# Shaka Project (libvpx, x264, ...) are not touched: they come from
+# upstream.  The ffmpeg pin is on a line of the Shaka Project, which moves it
+# too: merge-versions.sh solves a merge conflict of that line.
 #
-# Usage: ./update-dez-libraries.sh
+# Usage: sync-scripts/update-versions.sh
 
 set -e
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 min_age_days="${MIN_AGE_DAYS:-14}"
 now=$(date +%s)
 
 # One line per library: the versions.txt key, the git URL (the same as in
 # its build script), and the pattern of a stable tag.
 libraries='
+ffmpeg https://git.ffmpeg.org/ffmpeg.git ^n[0-9]+\.[0-9]+(\.[0-9]+)?$
 zlib https://github.com/madler/zlib ^v[0-9]+\.[0-9]+(\.[0-9]+)?$
 freetype https://gitlab.freedesktop.org/freetype/freetype.git ^VER-[0-9]+-[0-9]+-[0-9]+$
 harfbuzz https://github.com/harfbuzz/harfbuzz ^[0-9]+\.[0-9]+\.[0-9]+$

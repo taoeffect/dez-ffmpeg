@@ -15,10 +15,13 @@ repository is a copy of the Shaka Project's
    `ffmpeg-macos-arm64`), and the build logs and release notes give SHA-256
    sums in place of MD5 sums.
  - Once a week, the "Sync upstream" workflow merges the new commits of the
-   Shaka Project, and moves each library that Dez adds to its newest stable
-   tag that is at least 14 days old (`update-dez-libraries.sh`).  It puts the
-   result in one pull request, with a build of all targets.  It never tags:
-   merge the pull request, then tag the release by hand.
+   Shaka Project, and moves the ffmpeg pin and each library that Dez adds to
+   its newest stable tag that is at least 14 days old.  When both sides
+   moved the ffmpeg pin, the merge keeps the newer one.  It puts the result
+   in one pull request, with a build of all targets.  It never tags: merge
+   the pull request, then tag the release by hand.  Its steps are the
+   scripts of `sync-scripts/`; you can run `update-versions.sh` and
+   `merge-versions.sh` by hand too.
 
 Each changed file has a "Changed for Dez" note, and each new file an "Added
 for Dez" note.  The rest of this file is the README of the Shaka Project.
