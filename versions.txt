@@ -1,4 +1,4 @@
-ffmpeg: n8.1.2
+ffmpeg: n9.0.2
 libvpx: v1.16.0
 svt-av1: v4.1.0
 x264: 0480cb0
@@ -10,7 +10,7 @@ mbedtls: v3.4.1
 # Changed for Dez: the libraries below.  update-dez-libraries.sh moves each one to its newest stable tag that is at least 14 days old.  Keep this block apart from the lines above, so that a change of the Shaka Project there merges with no conflict.
 zlib: v1.3.2
 freetype: VER-2-15-0
-harfbuzz: 15.0.0
+harfbuzz: 15.1.0
 fribidi: v1.0.18
 libass: 0.17.5
 
