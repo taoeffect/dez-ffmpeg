@@ -7,7 +7,7 @@ lame: 3.100
 opus: v1.6.1
 mbedtls: v3.4.1
 
-# Changed for Dez: the ffmpeg pin above, and the libraries below.  sync-scripts/update-versions.sh moves each of them to its newest stable tag that is at least 14 days old, and sync-scripts/merge-versions.sh solves a merge conflict of the ffmpeg pin.  Keep this block apart from the lines above, so that a change of the Shaka Project there merges with no conflict.
+# Changed for Dez: the ffmpeg pin above, and the libraries below.  sync-scripts/update-versions.sh moves each of them to its newest stable tag that is at least 14 days old, and sync-scripts/merge-versions.sh solves a merge conflict of the ffmpeg pin.  Keep this block apart from the lines above, so that a change of the Shaka Project there merges with no conflict.  Dez does not build mbedtls (build-scripts/90-ffmpeg.sh), so the release notes leave it out.
 zlib: v1.3.2
 freetype: VER-2-15-0
 harfbuzz: 15.1.0

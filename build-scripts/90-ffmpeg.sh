@@ -15,7 +15,9 @@
 # limitations under the License.
 
 # Changed for Dez: zlib (PNG), and libfreetype, libharfbuzz, libfribidi, and
-# libass (the drawtext, subtitles, and ass filters).
+# libass (the drawtext, subtitles, and ass filters).  No network support, and
+# so no mbedtls: Dez never lets ffmpeg use the network, so the binary needs no
+# network code, and no TLS library that needs security fixes.
 
 set -e
 set -x
@@ -85,7 +87,7 @@ if ! ./configure \
     --enable-libx265 \
     --enable-libmp3lame \
     --enable-libopus \
-    --enable-mbedtls \
+    --disable-network \
     --enable-zlib \
     --enable-libfreetype \
     --enable-libharfbuzz \

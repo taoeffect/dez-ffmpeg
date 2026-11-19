@@ -10,6 +10,9 @@ repository is a copy of the Shaka Project's
    `drawtext`, `subtitles`, and `ass` filters.  libass has no system font
    provider, so give the fonts in the filter options: `fontfile` (drawtext)
    or `fontsdir` (subtitles, ass).
+ - It has no network support, and so no mbedtls: Dez never lets ffmpeg use
+   the network.  Only local protocols such as `file`, `pipe`, and `concat`
+   are left.
  - It does not have the issue and label workflows of the Shaka Project.
  - Its release files are named `macos` in place of `osx` (as in
    `ffmpeg-macos-arm64`), and the build logs and release notes give SHA-256
