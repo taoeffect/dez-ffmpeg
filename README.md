@@ -17,6 +17,10 @@ repository is a copy of the Shaka Project's
    FFmpeg n9.0.2: without it, the static Linux programs crash on every
    MPEG-TS input.  The build workflow checks that `ffmpeg` reads an MPEG-TS
    file.
+ - Each release has the file `LICENSES.txt`: the license texts of ffmpeg and
+   of each library in the programs, copied from the source code of the build
+   (`build-scripts/91-licenses.sh`).  Dez ships it with the programs.  A
+   library that moves or renames its license file stops the build.
  - It does not have the issue and label workflows of the Shaka Project.
  - Its release files are named `macos` in place of `osx` (as in
    `ffmpeg-macos-arm64`), and the build logs and release notes give SHA-256
