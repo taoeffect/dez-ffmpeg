@@ -13,7 +13,9 @@
 # limitations under the License.
 
 # Changed for Dez: the steps that build zlib, freetype, harfbuzz, fribidi,
-# and libass, and SHA-256 sums in place of MD5 sums.
+# and libass, no step that builds mbedtls (ffmpeg has no network support; the
+# unused build-scripts/07-mbedtls.sh stays, so that the changes of the Shaka
+# Project to it merge), and SHA-256 sums in place of MD5 sums.
 
 # A workflow to build fresh binaries.
 # Builds ffmpeg and ffprobe on all OS & CPU combinations, then optionally
@@ -230,9 +232,6 @@ jobs:
 
       - name: Install opus
         run: ./repo-src/build-scripts/06-opus.sh
-
-      - name: Install mbedtls
-        run: ./repo-src/build-scripts/07-mbedtls.sh
 
       - name: Install zlib
         run: ./repo-src/build-scripts/08-zlib.sh
