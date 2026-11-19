@@ -13,6 +13,10 @@ repository is a copy of the Shaka Project's
  - It has no network support, and so no mbedtls: Dez never lets ffmpeg use
    the network.  Only local protocols such as `file`, `pipe`, and `concat`
    are left.
+ - It applies `ffmpeg-mpegts-stack.patch`, an upstream fix that is not in
+   FFmpeg n9.0.2: without it, the static Linux programs crash on every
+   MPEG-TS input.  The build workflow checks that `ffmpeg` reads an MPEG-TS
+   file.
  - It does not have the issue and label workflows of the Shaka Project.
  - Its release files are named `macos` in place of `osx` (as in
    `ffmpeg-macos-arm64`), and the build logs and release notes give SHA-256

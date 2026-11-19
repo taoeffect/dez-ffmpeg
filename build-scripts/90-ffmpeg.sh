@@ -17,7 +17,8 @@
 # Changed for Dez: zlib (PNG), and libfreetype, libharfbuzz, libfribidi, and
 # libass (the drawtext, subtitles, and ass filters).  No network support, and
 # so no mbedtls: Dez never lets ffmpeg use the network, so the binary needs no
-# network code, and no TLS library that needs security fixes.
+# network code, and no TLS library that needs security fixes.  The MPEG-TS
+# fix of ffmpeg-mpegts-stack.patch on every platform.
 
 set -e
 set -x
@@ -25,6 +26,13 @@ set -x
 tag=$(repo-src/get-version.sh ffmpeg)
 git clone --depth 1 https://git.ffmpeg.org/ffmpeg.git -b "$tag"
 cd ffmpeg
+
+# FFmpeg n9.0.2 puts a 134 KB struct on the stack of the demuxer thread in
+# pat_cb() and pmt_cb(), so the static musl builds (128 KiB thread stacks)
+# crash on every MPEG-TS input.  This upstream commit fixes it.  When the
+# pinned tag has the commit, this patch fails: then remove it.
+# https://github.com/FFmpeg/FFmpeg/commit/6edbe0d5af28c31f97a7a9ae4aee94a8b9d102ce
+patch -p1 -i ../repo-src/ffmpeg-mpegts-stack.patch
 
 # Set some OS-specific environment variables and flags.
 if [[ "$RUNNER_OS" == "Linux" ]]; then

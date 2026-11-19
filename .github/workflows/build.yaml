@@ -15,7 +15,8 @@
 # Changed for Dez: the steps that build zlib, freetype, harfbuzz, fribidi,
 # and libass, no step that builds mbedtls (ffmpeg has no network support; the
 # unused build-scripts/07-mbedtls.sh stays, so that the changes of the Shaka
-# Project to it merge), and SHA-256 sums in place of MD5 sums.
+# Project to it merge), SHA-256 sums in place of MD5 sums, and the step that
+# checks that ffmpeg reads an MPEG-TS file.
 
 # A workflow to build fresh binaries.
 # Builds ffmpeg and ffprobe on all OS & CPU combinations, then optionally
@@ -278,6 +279,9 @@ jobs:
 
       - name: Check that executables are static
         run: ./repo-src/build-scripts/99-check-static.sh
+
+      - name: Check that ffmpeg reads an MPEG-TS file
+        run: ./repo-src/build-scripts/99-check-mpegts.sh
 
       # Because we had to break Alpine detection to work around runner
       # restrictions, we also have to manually install Alpine deps for tmate.
