@@ -29,7 +29,11 @@ tag=$(repo-src/get-version.sh rubberband)
 git clone --depth 1 https://github.com/breakfastquay/rubberband -b "$tag"
 cd rubberband
 
-meson setup build \
+# src/common/mathmisc.h uses size_t but includes no header that defines it.
+# New versions of libc++ (Apple clang 21 on the macOS runner) no longer give
+# it through <math.h>, so the build fails there with "unknown type name
+# 'size_t'".  meson takes CXXFLAGS as the C++ arguments of the build.
+CXXFLAGS="${CXXFLAGS:-} -include cstddef" meson setup build \
   --prefix=/usr/local \
   --libdir=lib \
   --buildtype=release \
