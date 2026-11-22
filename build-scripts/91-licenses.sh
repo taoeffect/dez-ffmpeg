@@ -56,7 +56,7 @@ cat > "$out" <<EOF
 The license texts of the ffmpeg and ffprobe programs of dez-ffmpeg
 (https://github.com/taoeffect/dez-ffmpeg), and of each library that they
 hold, copied from the source code of the build.  musl is only in the Linux
-programs.
+programs, and sse2neon (a part of vid.stab) only in the macOS programs.
 
 EOF
 
@@ -87,6 +87,28 @@ add_licenses fribidi "$(repo-src/get-version.sh fribidi)" fribidi \
   COPYING
 add_licenses libass "$(repo-src/get-version.sh libass)" libass \
   COPYING
+add_licenses rubberband "$(repo-src/get-version.sh rubberband)" rubberband \
+  COPYING
+# vid.stab's LICENSE file is only the GPLv2-or-later notice; the GPLv2 text
+# is in the parts of x264 and the Rubber Band Library.
+vidstab_version=$(repo-src/get-version.sh vidstab)
+add_licenses vidstab "$vidstab_version" vid.stab \
+  LICENSE
+
+# vid.stab includes src/sse2neon.h (MIT) where the compiler defines
+# __ARM_NEON__: clang on macOS arm64 does, GCC on Linux arm64 does not.  The
+# notice is the comment at the top of that file, so copy only the comment.
+# An empty or a changed comment stops the build.
+sse2neon_notice=$(sed -n '/^\/\/ This header file provides/,/^ \*\/$/p' vid.stab/src/sse2neon.h)
+[[ "$sse2neon_notice" == *"sse2neon is freely redistributable under the MIT License"*"THE SOFTWARE IS PROVIDED \"AS IS\""* ]]
+{
+  echo "$rule"
+  echo "vidstab $vidstab_version: src/sse2neon.h (its license notice)"
+  echo "$rule"
+  echo
+  echo "$sse2neon_notice"
+  echo
+} >> "$out"
 
 # The static Linux programs hold the musl C library of the Alpine container
 # (the libc.a of its musl-dev package).  Alpine ships no license file of

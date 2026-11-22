@@ -13,11 +13,12 @@
 # limitations under the License.
 
 # Changed for Dez: the steps that build zlib, freetype, harfbuzz, fribidi,
-# and libass, no step that builds mbedtls (ffmpeg has no network support; the
-# unused build-scripts/07-mbedtls.sh stays, so that the changes of the Shaka
-# Project to it merge), SHA-256 sums in place of MD5 sums, the step that
-# checks that ffmpeg reads an MPEG-TS file, and the license texts
-# (LICENSES.txt, a release file).
+# libass, rubberband, and vid.stab, no step that builds mbedtls (ffmpeg has no
+# network support; the unused build-scripts/07-mbedtls.sh stays, so that the
+# changes of the Shaka Project to it merge), SHA-256 sums in place of MD5
+# sums, the steps that check that ffmpeg reads an MPEG-TS file and runs the
+# rubberband and vid.stab filters, and the license texts (LICENSES.txt, a
+# release file).
 
 # A workflow to build fresh binaries.
 # Builds ffmpeg and ffprobe on all OS & CPU combinations, then optionally
@@ -250,6 +251,12 @@ jobs:
       - name: Install libass
         run: ./repo-src/build-scripts/12-libass.sh
 
+      - name: Install rubberband
+        run: ./repo-src/build-scripts/13-rubberband.sh
+
+      - name: Install vid.stab
+        run: ./repo-src/build-scripts/14-vidstab.sh
+
       - name: Build ffmpeg and ffprobe
         run: ./repo-src/build-scripts/90-ffmpeg.sh
 
@@ -295,6 +302,9 @@ jobs:
 
       - name: Check that ffmpeg reads an MPEG-TS file
         run: ./repo-src/build-scripts/99-check-mpegts.sh
+
+      - name: Check that ffmpeg runs the rubberband and vid.stab filters
+        run: ./repo-src/build-scripts/99-check-filters.sh
 
       # Because we had to break Alpine detection to work around runner
       # restrictions, we also have to manually install Alpine deps for tmate.

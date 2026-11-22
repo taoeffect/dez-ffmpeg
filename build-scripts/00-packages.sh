@@ -15,7 +15,7 @@
 # limitations under the License.
 
 # Changed for Dez: meson (and ninja) for the libraries of the drawtext,
-# subtitles, and ass filters; more Homebrew packages to unlink;
+# subtitles, ass, and rubberband filters; more Homebrew packages to unlink;
 # PKG_CONFIG_PATH on macOS; and parallel make jobs.
 
 set -e
@@ -105,6 +105,7 @@ elif [[ "$RUNNER_OS" == "macOS" ]]; then
     lame \
     libass \
     libpng \
+    libvidstab \
     libvpx \
     libx11 \
     libxau \
@@ -113,6 +114,7 @@ elif [[ "$RUNNER_OS" == "macOS" ]]; then
     mbedtls \
     opus \
     opusfile \
+    rubberband \
     svt-av1 \
     x264 \
     x265 \

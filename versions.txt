@@ -13,6 +13,8 @@ freetype: VER-2-15-0
 harfbuzz: 15.1.0
 fribidi: v1.0.18
 libass: 0.17.5
+rubberband: v4.0.0
+vidstab: v1.1.2
 
 # NOTES:
 #  - mbedtls v4 isn't building properly, and mbedtls v3.6 and v3.5 fail to link with ffmpeg on Windows (bcrypt missing)

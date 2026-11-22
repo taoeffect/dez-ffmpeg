@@ -14,8 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Changed for Dez: zlib (PNG), and libfreetype, libharfbuzz, libfribidi, and
-# libass (the drawtext, subtitles, and ass filters).  No network support, and
+# Changed for Dez: zlib (PNG); libfreetype, libharfbuzz, libfribidi, and
+# libass (the drawtext, subtitles, and ass filters); librubberband (the
+# rubberband filter), with -lc++ in place of -lstdc++ on macOS; and libvidstab
+# (the vidstabdetect and vidstabtransform filters).  No network support, and
 # so no mbedtls: Dez never lets ffmpeg use the network, so the binary needs no
 # network code, and no TLS library that needs security fixes.  The MPEG-TS
 # fix of ffmpeg-mpegts-stack.patch on every platform.
@@ -73,6 +75,14 @@ elif [[ "$RUNNER_OS" == "macOS" ]]; then
 
   # Enable position independent code (PIC).  This resolved a crash on arm64.
   PLATFORM_CONFIGURE_FLAGS="$PLATFORM_CONFIGURE_FLAGS --enable-pic"
+
+  # The configure check of librubberband links -lstdc++, the C++ library
+  # of GCC, and adds it to the libraries of ffmpeg.  The macOS SDK has no
+  # libstdc++: the C++ library of macOS is libc++, which the Rubber Band
+  # Library uses there.  The grep stops the build when the configure line
+  # changes, so that this fix is not lost with no notice.
+  sed -i.bak -e '/require_pkg_config librubberband/s/-lstdc++/-lc++/g' configure
+  grep -q 'append librubberband_extralibs "-lc++"' configure
 elif [[ "$RUNNER_OS" == "Windows" ]]; then
   # /usr/local/incude and /usr/local/lib are not in mingw's include
   # and linker paths by default, so add them.
@@ -101,6 +111,8 @@ if ! ./configure \
     --enable-libharfbuzz \
     --enable-libfribidi \
     --enable-libass \
+    --enable-librubberband \
+    --enable-libvidstab \
     --enable-runtime-cpudetect \
     --enable-gpl \
     --enable-version3 \

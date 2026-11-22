@@ -10,6 +10,11 @@ repository is a copy of the Shaka Project's
    `drawtext`, `subtitles`, and `ass` filters.  libass has no system font
    provider, so give the fonts in the filter options: `fontfile` (drawtext)
    or `fontsdir` (subtitles, ass).
+ - It adds the Rubber Band Library, for the `rubberband` filter (tempo and
+   pitch of audio), and vid.stab, for the `vidstabdetect` and
+   `vidstabtransform` filters (video stabilization).  The Rubber Band
+   Library uses its own FFT and resampler on every target, and vid.stab has
+   no OpenMP.  The build workflow checks that `ffmpeg` runs these filters.
  - It has no network support, and so no mbedtls: Dez never lets ffmpeg use
    the network.  Only local protocols such as `file`, `pipe`, and `concat`
    are left.

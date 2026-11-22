@@ -40,6 +40,8 @@ freetype https://gitlab.freedesktop.org/freetype/freetype.git ^VER-[0-9]+-[0-9]+
 harfbuzz https://github.com/harfbuzz/harfbuzz ^[0-9]+\.[0-9]+\.[0-9]+$
 fribidi https://github.com/fribidi/fribidi ^v[0-9]+\.[0-9]+\.[0-9]+$
 libass https://github.com/libass/libass ^[0-9]+\.[0-9]+\.[0-9]+$
+rubberband https://github.com/breakfastquay/rubberband ^v[0-9]+\.[0-9]+\.[0-9]+$
+vidstab https://github.com/georgmartius/vid.stab ^v[0-9]+\.[0-9]+\.[0-9]+$
 '
 
 # Prints the time of a tag in seconds since 1970: the tagger date of an
